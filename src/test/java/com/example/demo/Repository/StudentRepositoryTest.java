@@ -1,5 +1,6 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Models.Address;
 import com.example.demo.Models.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,21 @@ class StudentRepositoryTest {
 
     @Test
     public void addStudent(){
+        Address address=Address.builder()
+                .city("Katowice")
+                .street("Korfantego")
+                .streetNumber(55)
+
+                .build();
         Student student= Student.builder()
-                .name("kp")
-                .surname("pk")
+                .name("Michelle")
+                .surname("Jenson")
+                .phoneNumber("432412543")
+                .email("mjenson@gmail.com")
+                .address(address)
                 .build();
 
+        System.out.println(student.getAddress().getCity());
         studentRepository.save(student);
     }
 
