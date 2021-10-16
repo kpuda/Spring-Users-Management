@@ -2,6 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Models.Address;
 import com.example.demo.Models.Student;
+import com.example.demo.Service.StudentServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,8 @@ class StudentRepositoryTest {
 
     @Autowired
     public StudentRepository studentRepository;
+    @Autowired
+    StudentServiceImpl studentService;
 
     @Test
     public void addStudent(){
@@ -41,6 +44,7 @@ class StudentRepositoryTest {
 
     @Test
     public void fetchStudents(){
+        System.out.println("studentRepository = " + studentService.fetchStudentsList());
         System.out.println(studentRepository.findAll());
     }
 

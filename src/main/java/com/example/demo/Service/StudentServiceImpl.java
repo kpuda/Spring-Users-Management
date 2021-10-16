@@ -18,18 +18,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
 public class StudentServiceImpl implements UserService {
 
     private StudentRepository studentRepository;
 
     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Student saveStudent(StudentWeb studentWeb) {
@@ -37,26 +36,29 @@ public class StudentServiceImpl implements UserService {
                 .name(studentWeb.getName())
                 .surname(studentWeb.getSurname())
                 .email(studentWeb.getEmail())
-                .password(studentWeb.getPassword())
-                .roles(Arrays.asList((new Role("ROLE_STUDENT"))))
+                .password(passwordEncoder.encode(studentWeb.getPassword()))
+                .roles(Arrays.asList((new Role("ROLE_USER"))))
                 .build();
         return studentRepository.save(student);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Student student=studentRepository.findByEmail(s);
-        if (student==null){
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Student user = studentRepository.findByEmail(username);
+        System.out.println(user.getEmail());
+        if(user == null) {
             throw new UsernameNotFoundException("Invalid email or password.");
         }
-        return new org.springframework.security.core.userdetails.User(student.getEmail(),student.getPassword(), maRolesToAuthorities(student.getRoles()));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
-    private Collection<? extends GrantedAuthority> maRolesToAuthorities(Collection<Role> roles){
-    return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override
     public List<Student> fetchStudentsList() {
-        return studentRepository.findAll();
+        return null;
     }
 }

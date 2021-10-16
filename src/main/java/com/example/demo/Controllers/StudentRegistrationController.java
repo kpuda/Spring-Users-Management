@@ -23,6 +23,10 @@ public class StudentRegistrationController {
         this.studentService = studentService;
     }
 
+    @ModelAttribute("student")
+    public StudentWeb studentWebRegistraiton(){
+    return new StudentWeb();
+    }
     @GetMapping
     public String showRegistrationForm(Model model){
         model.addAttribute("student", new Student());
