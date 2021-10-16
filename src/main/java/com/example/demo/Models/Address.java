@@ -5,16 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+import java.util.List;
 
-@Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Address {
 
-/*
     @Id
     @SequenceGenerator(
             name = "addres_id",
@@ -24,16 +23,15 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
     generator = "address_id")
 
-    private Long addressId;*/
+    private Long addressId;
     private String city;
     private String street;
     private Integer streetNumber;
     private Integer houseNumber;
     private String postalCode;
 
-    /*@OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "addressId")
     private List<Student> students;
-*/
 
 }

@@ -24,39 +24,25 @@
                             <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
                             <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
                             <th scope="col" class="border-0 text-uppercase font-medium">Contact</th>
-                            <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
-                            <th scope="col" class="border-0 text-uppercase font-medium">Category</th>
                             <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
-                            <th scope="col" class="border-0 text-uppercase font-medium"><a th:href="@{/register}">Add user</a></th>
+                            <th scope="col" class="border-0 text-uppercase font-medium"><a th:href="@{/registration}">Add user</a></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each = "student: ${student}">
-                            <td class="pl-4" th:text="${student.studentId}" />
+                            <td class="pl-4" th:text="${student.userId}" />
                             <td >
                                 <h5 class="font-medium mb-0"  th:text="${student.surname}"/>
                                 <span class="text-muted"th:text="${student.name}"/>
                             </td>
                             <td>
-                                <span class="text-muted" th:text="${student.address.street} "  /> <span class="text-muted" th:text="${student.address.streetNumber} " /><span> / </span><span class="text-muted" th:text="${student.address.houseNumber} " /> <br>
-                                <span class="text-muted"th:text="${student.address.city}"/>  <span class="text-muted"th:text="${student.address.postalCode}"/>
+                                <span class="text-muted" th:text="${student.street} "  /> <span class="text-muted" th:text="${student.streetNumber} " /><span> / </span><span class="text-muted" th:text="${student.houseNumber} " /> <br>
+                                <span class="text-muted"th:text="${student.city}"/>  <span class="text-muted"th:text="${student.postalCode}"/>
 
                             </td>
                             <td>
                                 <span class="text-muted" th:text="${student.email}"/><br>
                                 <span class="text-muted"th:text="${student.phoneNumber}"/>
-                            </td>
-                            <td>
-                                <span class="text-muted">15 Mar 1988</span><br>
-                                <span class="text-muted">10: 55 AM</span>
-                            </td>
-                            <td>
-                                <select class="form-control category-select" id="exampleFormControlSelect1">
-                                    <option>Modulator</option>
-                                    <option>Admin</option>
-                                    <option>User</option>
-                                    <option>Subscriber</option>
-                                </select>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-key"></i> </button>

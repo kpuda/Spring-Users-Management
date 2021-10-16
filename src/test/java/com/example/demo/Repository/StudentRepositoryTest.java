@@ -18,18 +18,30 @@ class StudentRepositoryTest {
                 .city("Katowice")
                 .street("Korfantego")
                 .streetNumber(55)
-
+                .houseNumber(25)
+                .postalCode("44-213")
                 .build();
         Student student= Student.builder()
                 .name("Michelle")
                 .surname("Jenson")
                 .phoneNumber("432412543")
                 .email("mjenson@gmail.com")
-                .address(address)
+                .city("Katowice")
+                .street("Korfanteg")
+                .streetNumber(55)
+                .houseNumber(21)
+                .postalCode("22-452")
                 .build();
 
-        System.out.println(student.getAddress().getCity());
+
+        System.out.println(address);
+        System.out.println(student);
         studentRepository.save(student);
+    }
+
+    @Test
+    public void fetchStudents(){
+        System.out.println(studentRepository.findAll());
     }
 
 }
