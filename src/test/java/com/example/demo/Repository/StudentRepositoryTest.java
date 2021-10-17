@@ -1,8 +1,8 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Models.Address;
-import com.example.demo.Models.Student;
-import com.example.demo.Service.StudentServiceImpl;
+import com.example.demo.Models.User;
+import com.example.demo.Service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class StudentRepositoryTest {
 
     @Autowired
-    public StudentRepository studentRepository;
+    public UserRepository userRepository;
     @Autowired
-    StudentServiceImpl studentService;
+    UserServiceImpl userService;
 
     @Test
     public void addStudent(){
@@ -24,7 +24,7 @@ class StudentRepositoryTest {
                 .houseNumber(25)
                 .postalCode("44-213")
                 .build();
-        Student student= Student.builder()
+        User student= User.builder()
                 .name("Michelle")
                 .surname("Jenson")
                 .phoneNumber("432412543")
@@ -39,13 +39,25 @@ class StudentRepositoryTest {
 
         System.out.println(address);
         System.out.println(student);
-        studentRepository.save(student);
+        userRepository.save(student);
     }
 
     @Test
     public void fetchStudents(){
-        System.out.println("studentRepository = " + studentService.fetchStudentsList());
-        System.out.println(studentRepository.findAll());
+        System.out.println("studentRepository = " + userService.fetchUserList());
+        System.out.println(userRepository.findAll());
     }
+
+    @Test
+    public void getStudents(){
+        System.out.println(userRepository.getStudents());
+    }
+
+    @Test
+    public void findById(){
+        System.out.println(userRepository.findUserById(19L));
+    }
+
+
 
 }

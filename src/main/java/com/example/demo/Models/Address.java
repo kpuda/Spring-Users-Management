@@ -32,6 +32,6 @@ public class Address {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "addressId")
-    private List<Student> students;
+    private List<User> students;
 
 }

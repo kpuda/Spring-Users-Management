@@ -1,9 +1,9 @@
 package com.example.demo.Service;
 
 import com.example.demo.Models.Role;
-import com.example.demo.Models.Student;
-import com.example.demo.Models.StudentWeb;
-import com.example.demo.Repository.StudentRepository;
+import com.example.demo.Models.UserDTO;
+import com.example.demo.Models.User;
+import com.example.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,39 +18,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
-    private StudentRepository studentRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+
+
     @Override
-    public Student saveStudent(StudentWeb studentWeb) {
-        Student student= Student.builder()
-                .name(studentWeb.getName())
-                .surname(studentWeb.getSurname())
+    public User saveStudent(UserDTO studentWeb) {
+        User student= User.builder()
                 .email(studentWeb.getEmail())
                 .password(passwordEncoder.encode(studentWeb.getPassword()))
-                .roles(Arrays.asList((new Role("ROLE_USER"))))
+                .roles(Arrays.asList((new Role("USER"))))
                 .build();
-        return studentRepository.save(student);
+        return userRepository.save(student);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        Student user = studentRepository.findByEmail(username);
-        System.out.println(user.getEmail());
+        User user = userRepository.findByEmail(username);
         if(user == null) {
             throw new UsernameNotFoundException("Invalid email or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
@@ -58,7 +57,17 @@ public class StudentServiceImpl implements UserService {
     }
 
     @Override
-    public List<Student> fetchStudentsList() {
+    public List<User> fetchUserList() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
+    @Override
+    public User saveStudent(User student) {
         return null;
     }
 }

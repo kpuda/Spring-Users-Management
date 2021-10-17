@@ -14,7 +14,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Builder
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Student {
+public class User {
 
     @Id
     @SequenceGenerator(

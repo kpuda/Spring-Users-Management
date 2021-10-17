@@ -1,5 +1,6 @@
 package com.example.demo.Configuration;
 
+import com.example.demo.Models.UserChangeDetails;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService studentService;
+
+    @Bean
+    public UserChangeDetails userChangeDetails(){
+        return new UserChangeDetails();
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -39,11 +45,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(
-                "/registration**",
-                "/js**",
-                "/css**",
-                "/img**").permitAll()
+        http.
+        authorizeRequests()
+                .antMatchers("/students","/edit/*","/delete/*").hasAuthority("ADMIN")
+                .antMatchers(
+        "/registration**",
+        "/js**",
+        "/css**",
+        "/img**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

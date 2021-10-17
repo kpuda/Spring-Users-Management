@@ -1,8 +1,8 @@
 package com.example.demo.Controllers;
 
 
-import com.example.demo.Models.Student;
-import com.example.demo.Models.StudentWeb;
+import com.example.demo.Models.User;
+import com.example.demo.Models.UserDTO;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,18 +24,19 @@ public class StudentRegistrationController {
     }
 
     @ModelAttribute("student")
-    public StudentWeb studentWebRegistraiton(){
-    return new StudentWeb();
+    public UserDTO studentWebRegistraiton(){
+    return new UserDTO();
     }
+
     @GetMapping
     public String showRegistrationForm(Model model){
-        model.addAttribute("student", new Student());
-        return "studentRegister";
+        model.addAttribute("user", new User());
+        return "register";
     }
 
     @PostMapping
-    public String registerStudent(@ModelAttribute("student")StudentWeb studentWeb){
+    public String registerStudent(@ModelAttribute("user") UserDTO studentWeb){
         studentService.saveStudent(studentWeb);
-        return "redirect:/registration?success";
+        return "redirect:/login?success";
     }
 }
