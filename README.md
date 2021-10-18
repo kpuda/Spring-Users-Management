@@ -5,7 +5,9 @@ Main technologies used: <br>
 -Spring Boot<br>
 -Hibernate<br>
 -Thymeleaf<br>
--MySQL<br><br><br>
+<br><br>
+Database used in project:<br>
+-MySQL
 
 
 
